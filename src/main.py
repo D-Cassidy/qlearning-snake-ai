@@ -18,12 +18,17 @@ GRID_SIZE = (30, 30)
 UP, DOWN, LEFT, RIGHT = (-1, 0), (1, 0), (0, -1), (0, 1) 
 
 # create pygame screen
-window_size = (SIZE, SIZE)
-screen = pygame.display.set_mode(window_size)
+WINDOW_SIZE = (SIZE, SIZE)
+screen = pygame.display.set_mode(WINDOW_SIZE)
 clock = pygame.time.Clock()
 
 # initialize game
-game = Game(GRID_SIZE, window_size)
+game = Game(GRID_SIZE, WINDOW_SIZE)
+print(f"""Initializing Game:
+    Window Size: {WINDOW_SIZE}px
+    Grid Size: {GRID_SIZE}px
+    Grids: ({int(WINDOW_SIZE[0]/GRID_SIZE[0])}, {int(WINDOW_SIZE[1]/GRID_SIZE[1])})px
+""")
 
 running = True
 while running:
