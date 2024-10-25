@@ -45,6 +45,7 @@ TODO
     TODO
 
 ### Project Structure
+```plaintext
 snake-ai-game/
 |
 |--src/
@@ -57,3 +58,4 @@ snake-ai-game/
 |--requirements.txt     # Project dependencies
 |--README.md            # Project documentation
 |--LICENSE              # MIT License
+```
