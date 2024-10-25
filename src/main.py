@@ -42,6 +42,8 @@ while running:
                 game.snake.change_direction(LEFT)
             elif event.key == pygame.K_RIGHT:
                 game.snake.change_direction(RIGHT)
+            elif event.key == pygame.K_q:
+                running = False
 
     # update game
     game.update()
