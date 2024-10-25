@@ -1,5 +1,10 @@
 #! /usr/bin/env python3
 
+# TODO:
+# render score tracker
+# display coordinates of head(?)
+# game over + retry screen
+
 # imports
 import pygame
 from snake_game import Game
