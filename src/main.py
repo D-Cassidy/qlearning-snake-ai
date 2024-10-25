@@ -2,23 +2,49 @@
 
 # imports
 import pygame
+from snake_game import Game
 
 # pygame setup
 pygame.init()
 
-dark_gray = (38, 38, 38)
-window_size = (1280, 1280)
+# constants
+DARK_GRAY = (38, 38, 38) 
+SIZE = 1280
+GRID_SIZE = 10
+UP, DOWN, LEFT, RIGHT = (-1, 0), (1, 0), (0, -1), (0, 1) 
+
+# create screen
+window_size = (SIZE, SIZE)
 screen = pygame.display.set_mode(window_size)
 clock = pygame.time.Clock()
 
+game = Game(GRID_SIZE)
+
 running = True
 while running:
+    # poll for inputs
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+        # movement keys
+        if event.tpye == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                game.snake.change_direction(UP)
+            elif event.key == pygame.K_DOWN:
+                game.snake.change_direction(DOWN)
+            elif event.key == pygame.K_LEFT:
+                game.snake.change_direction(LEFT)
+            elif event.key == pygame.K_RIGHT:
+                game.snake.change_direction(RIGHT)
+
+    game.update()
+
+    if game.game_over:
+        game.reset()
     
     # fill screen with a color to wipe away last frame
-    screen.fill(dark_gray)
+    screen.fill(DARK_GRAY)
 
     # render game here
 
