@@ -15,6 +15,7 @@ The goal of this project is to teach myself more about how AI, in particular rei
 ### Q-Learning Agent
 First Iteration:
     The state is represented only by the location of the snake's head and the position of the food.
+    epsilon_decay = 0.995, min_epsilon = 0.01
     The rewards are +10 for finding food, -10 for losing, and -1 for nothing happening.
     
     The snake seems to have learned to off itself as soon as possible since the game board is so large it cannot possibly find enough food fast enough to outdo the -1 reward for each move. Need to tweak the reward values.
