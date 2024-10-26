@@ -1,10 +1,5 @@
 #! /usr/bin/env python3
 
-# TODO:
-# render score tracker
-# display coordinates of head(?)
-# game over + retry screen
-
 # imports
 import pygame
 from snake_game import Game
@@ -95,6 +90,6 @@ while running:
     screen.blit(high_score_text, (10, 10))
 
     pygame.display.flip()
-    clock.tick(20) # limits fps to 60
+    clock.tick(30) # limits fps to 60
 
 pygame.quit()
