@@ -20,8 +20,9 @@ SCORE_COLOR = (255, 255, 255)
 # constants
 MONITOR_DIM = (pygame.display.Info().current_w, pygame.display.Info().current_h)
 SIZE = int(min(MONITOR_DIM) * 0.9)
-GRID_SIZE = (int(SIZE/40), int(SIZE/40))
-FONT_SIZE = int(GRID_SIZE[0]*2)
+NUM_GRIDS = 20
+GRID_SIZE = (int(SIZE/NUM_GRIDS), int(SIZE/NUM_GRIDS))
+FONT_SIZE = int(GRID_SIZE[0])
 
 # create pygame screen
 WINDOW_SIZE = (SIZE, SIZE)
