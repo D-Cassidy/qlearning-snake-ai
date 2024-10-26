@@ -9,8 +9,8 @@ pygame.init()
 
 # colors
 BACKGROUND_COLOR = (38, 38, 38)
-SNAKE_COLOR = (0, 255, 0)
-FOOD_COLOR = (255, 0, 0)
+SNAKE_COLOR = (0, 168, 37)
+FOOD_COLOR = (222, 0, 0)
 SCORE_COLOR = (255, 255, 255)
 
 # constants
@@ -90,6 +90,6 @@ while running:
     screen.blit(high_score_text, (10, 10))
 
     pygame.display.flip()
-    clock.tick(30) # limits fps to 60
+    clock.tick(20) # limits fps to 60
 
 pygame.quit()
