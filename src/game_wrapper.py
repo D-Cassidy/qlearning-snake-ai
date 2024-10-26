@@ -12,8 +12,9 @@ class SnakeGameWrapper:
     def get_state(self):
         """Retruns the current game state"""
         snake_head = self.game.snake.body[0]
+        snake_body = self.game.snake.body[1:]
         food_position = self.game.food.position
-        state = (snake_head, food_position)
+        state = (snake_head, snake_body, food_position)
         return state
     
     def take_action(self, action):
