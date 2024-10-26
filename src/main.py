@@ -16,11 +16,13 @@ pygame.init()
 BACKGROUND_COLOR = (38, 38, 38)
 SNAKE_COLOR = (0, 255, 0)
 FOOD_COLOR = (255, 0, 0)
+SCORE_COLOR = (255, 255, 255)
 
 # constants
 MONITOR_DIM = (pygame.display.Info().current_w, pygame.display.Info().current_h)
 SIZE = int(min(MONITOR_DIM) * 0.9)
 GRID_SIZE = (int(SIZE/40), int(SIZE/40))
+FONT_SIZE = int(GRID_SIZE[0]*2)
 UP, DOWN, LEFT, RIGHT = (-1, 0), (1, 0), (0, -1), (0, 1) 
 
 # create pygame screen
@@ -79,6 +81,18 @@ while running:
                             game.food.position[0] * GRID_SIZE[1],
                             GRID_SIZE[0], GRID_SIZE[1])
     pygame.draw.rect(screen, FOOD_COLOR, food_rect)
+
+    # display score
+    score_font = pygame.font.Font(size=FONT_SIZE)
+    score_text = score_font.render(f"Score: {game.score}", True, SCORE_COLOR)
+    screen.blit(score_text, (int(SIZE/2) - int(score_text.get_size()[0]/2), 10))
+
+    # display high score
+    try: high_score = max(high_score, game.score)
+    except NameError: high_score = 0
+    high_score_font = pygame.font.Font(size=int(FONT_SIZE/2))
+    high_score_text = high_score_font.render(f"High Score: {high_score}", True, SCORE_COLOR)
+    screen.blit(high_score_text, (10, 10))
 
     pygame.display.flip()
     clock.tick(20) # limits fps to 60
