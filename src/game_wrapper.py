@@ -35,7 +35,7 @@ class SnakeGameWrapper:
         # Define reward
         reward = 0
         if self.game.snake.body[0] == self.game.food.position:
-            reward = 150     # positive reward for food 
+            reward = 500     # positive reward for food 
         elif self.game.game_over:
             reward = -250    # negative reward for losing
         else:
