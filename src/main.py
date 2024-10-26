@@ -45,7 +45,7 @@ agent = QLearningAgent(actions)
 agent.load_q_table()
 
 # training settings
-num_epochs = 1000
+num_epochs = 10000
 for epoch in range(num_epochs):
     state = wrapper.reset()
     done = False 
@@ -100,7 +100,7 @@ for epoch in range(num_epochs):
 
 
         pygame.display.flip()
-        clock.tick(20) # limits fps to 60
+        clock.tick(60) # limits fps to 60
 
     # Log progress
     print(f"Epoch {epoch+1}/{num_epochs}, Score: {game.score}, Total Reward: {total_reward}, Epsilon {agent.epsilon:.4f}")
