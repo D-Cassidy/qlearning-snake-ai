@@ -1,21 +1,23 @@
 # Snake AI Game
 
-A self-learning AI that plays the classic Snake game, developed in Python. This project includes 
-a basic PyGame based version of Snake and reinforcement learning (Q-learning) to train an AI to 
-improve its gameplay performance.
+A self-learning AI that plays the classic Snake game, developed in Python. This project includes a basic PyGame based version of Snake and reinforcement learning (Q-learning) to train an AI to improve its gameplay performance.
 
 ### Table of Contents
 - [Project Overview](#project-overview)
-- [Features](#features)
+- [Q-Learning Agent](#q-learning-agent)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 
 ### Project Overview
-TODO
+The goal of this project is to teach myself more about how AI, in particular reinforcement learning works with the added benefit of learning the PyGame library. It features a Snake Game made using Python's PyGame library and a Q-Learning agent trying to improve at the game using the epsilon-greedy algorithm.
 
-### Features
-TODO
+### Q-Learning Agent
+First Iteration:
+    The state is represented only by the location of the snake's head and the position of the food.
+    The rewards are +10 for finding food, -10 for losing, and -1 for nothing happening.
+    
+    The snake seems to have learned to off itself as soon as possible since the game board is so large it cannot possibly find enough food fast enough to outdo the -1 reward for each move. Need to tweak the reward values.
 
 ### Installation
 1. Clone repository:
