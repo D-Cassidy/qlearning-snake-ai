@@ -55,7 +55,9 @@ snake-ai-game/
 |   |--game_wrapper.py          # wrapper for interfacing between game and AI agent
 |   |--utils.py                 # Helper functions
 |
-|--assets/                      # Assets folder for images
+|--models/
+|   |--q_table.pkl              # saves data on ai agent
+|
 |--requirements.txt             # Project dependencies
 |--README.md                    # Project documentation
 |--LICENSE                      # MIT License

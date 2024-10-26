@@ -35,11 +35,13 @@ print(f"""Initializing Game:
     Grid Size: {GRID_SIZE}px
     Grids: {int(WINDOW_SIZE[0]/GRID_SIZE[0])} x {int(WINDOW_SIZE[1]/GRID_SIZE[1])}
 """)
+quit = False
 
 # initialize agent
 actions = ['up', 'down', 'left', 'right']
 wrapper = SnakeGameWrapper(game)
 agent = QLearningAgent(actions)
+agent.load_q_table()
 
 # training settings
 num_epochs = 1000
@@ -59,11 +61,12 @@ for epoch in range(num_epochs):
         # poll for user input
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                quit = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
-                    pygame.quit()
-        
+                    quit = True
+
+        if quit: break 
 
         # fill screen with a color to wipe away last frame
         screen.fill(BACKGROUND_COLOR)
@@ -102,4 +105,8 @@ for epoch in range(num_epochs):
     print(f"Epoch {epoch+1}/{num_epochs}, Score: {game.score}, Total Reward: {total_reward}, Epsilon {agent.epsilon:.4f}")
     agent.decay_epsilon()
 
+    if quit: break
+
+print('end of file')
+agent.save_q_table()
 pygame.quit()
