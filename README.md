@@ -49,13 +49,14 @@ TODO
 snake-ai-game/
 |
 |--src/
-|   |--main.py          # Main game loop
-|   |--snake_game.py    # Game logic for snake and food
-|   |--ai_agent.py      # AI agent
-|   |--utils.py         # Helper functions
+|   |--main.py                  # Main game loop
+|   |--snake_game.py            # Game logic for snake and food
+|   |--qlearning_ai_agent.py    # AI agent
+|   |--game_wrapper.py          # wrapper for interfacing between game and AI agent
+|   |--utils.py                 # Helper functions
 |
-|--assets/              # Assets folder for images
-|--requirements.txt     # Project dependencies
-|--README.md            # Project documentation
-|--LICENSE              # MIT License
+|--assets/                      # Assets folder for images
+|--requirements.txt             # Project dependencies
+|--README.md                    # Project documentation
+|--LICENSE                      # MIT License
 ```
