@@ -2,7 +2,11 @@
 
 # imports
 import pygame
+
 from snake_game import Game
+from game_wrapper import SnakeGameWrapper
+from qlearning_ai_agent import QLearningAgent
+import utils
 
 # pygame setup
 pygame.init()
@@ -18,7 +22,6 @@ MONITOR_DIM = (pygame.display.Info().current_w, pygame.display.Info().current_h)
 SIZE = int(min(MONITOR_DIM) * 0.9)
 GRID_SIZE = (int(SIZE/40), int(SIZE/40))
 FONT_SIZE = int(GRID_SIZE[0]*2)
-UP, DOWN, LEFT, RIGHT = (-1, 0), (1, 0), (0, -1), (0, 1) 
 
 # create pygame screen
 WINDOW_SIZE = (SIZE, SIZE)
@@ -33,63 +36,70 @@ print(f"""Initializing Game:
     Grids: {int(WINDOW_SIZE[0]/GRID_SIZE[0])} x {int(WINDOW_SIZE[1]/GRID_SIZE[1])}
 """)
 
-running = True
-while running:
-    # poll for inputs
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+# initialize agent
+actions = ['up', 'down', 'left', 'right']
+wrapper = SnakeGameWrapper(game)
+agent = QLearningAgent(actions)
 
-        # movement keys
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                game.snake.change_direction(UP)
-            elif event.key == pygame.K_DOWN:
-                game.snake.change_direction(DOWN)
-            elif event.key == pygame.K_LEFT:
-                game.snake.change_direction(LEFT)
-            elif event.key == pygame.K_RIGHT:
-                game.snake.change_direction(RIGHT)
-            elif event.key == pygame.K_q:
-                running = False
+# training settings
+num_epochs = 1000
+for epoch in range(num_epochs):
+    state = wrapper.reset()
+    done = False 
+    total_reward = 0    # track reward per epoch
 
-    # update game
-    game.update()
+    while not done:
+        # ai agent
+        action = agent.choose_action(state)
+        next_state, reward, done = wrapper.take_action(action)
+        agent.update_q_table(state, action, reward, next_state)
+        state = next_state
+        total_reward += reward
 
-    # check for game over
-    if game.game_over:
-        game.reset()
-    
-    # fill screen with a color to wipe away last frame
-    screen.fill(BACKGROUND_COLOR)
+        # poll for user input
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    pygame.quit()
+        
 
-    # RENDER GAME
-    # draw snake
-    for segment in game.snake.body:
-        seg_x = segment[1] * GRID_SIZE[0]
-        seg_y = segment[0] * GRID_SIZE[1]
-        segment_rect = pygame.Rect(seg_x, seg_y, GRID_SIZE[0], GRID_SIZE[1])
-        pygame.draw.rect(screen, SNAKE_COLOR, segment_rect)
+        # fill screen with a color to wipe away last frame
+        screen.fill(BACKGROUND_COLOR)
 
-    # draw food
-    food_radius = GRID_SIZE[0]/2
-    food_x = game.food.position[1] * GRID_SIZE[0] + food_radius
-    food_y = game.food.position[0] * GRID_SIZE[1] + food_radius
-    pygame.draw.circle(screen, FOOD_COLOR, (food_x, food_y), food_radius)
+        # RENDER GAME
+        # draw snake
+        for segment in game.snake.body:
+            seg_x = segment[1] * GRID_SIZE[0]
+            seg_y = segment[0] * GRID_SIZE[1]
+            segment_rect = pygame.Rect(seg_x, seg_y, GRID_SIZE[0], GRID_SIZE[1])
+            pygame.draw.rect(screen, SNAKE_COLOR, segment_rect)
 
-    # display score
-    score_font = pygame.font.Font(size=FONT_SIZE)
-    score_text = score_font.render(f"Score: {game.score}", True, SCORE_COLOR)
-    screen.blit(score_text, (int(SIZE/2) - int(score_text.get_size()[0]/2), 10))
+        # draw food
+        food_radius = GRID_SIZE[0]/2
+        food_x = game.food.position[1] * GRID_SIZE[0] + food_radius
+        food_y = game.food.position[0] * GRID_SIZE[1] + food_radius
+        pygame.draw.circle(screen, FOOD_COLOR, (food_x, food_y), food_radius)
 
-    # display high score
-    try: high_score = max(high_score, game.score)
-    except NameError: high_score = 0
-    high_score_font = pygame.font.Font(size=int(FONT_SIZE/2))
-    high_score_text = high_score_font.render(f"High Score: {high_score}", True, SCORE_COLOR)
-    screen.blit(high_score_text, (10, 10))
+        # display score
+        score_font = pygame.font.Font(size=FONT_SIZE)
+        score_text = score_font.render(f"Score: {game.score}", True, SCORE_COLOR)
+        screen.blit(score_text, (int(SIZE/2) - int(score_text.get_size()[0]/2), 10))
 
-    pygame.display.flip()
-    clock.tick(20) # limits fps to 60
+        # display high score
+        try: high_score = max(high_score, game.score)
+        except NameError: high_score = 0
+        high_score_font = pygame.font.Font(size=int(FONT_SIZE/2))
+        high_score_text = high_score_font.render(f"High Score: {high_score}", True, SCORE_COLOR)
+        screen.blit(high_score_text, (10, 10))
+
+
+        pygame.display.flip()
+        clock.tick(20) # limits fps to 60
+
+    # Log progress
+    print(f"Epoch {epoch+1}/{num_epochs}, Score: {game.score}, Total Reward: {total_reward}, Epsilon {agent.epsilon:.4f}")
+    agent.decay_epsilon()
 
 pygame.quit()
