@@ -18,17 +18,25 @@ and a Q-Learning agent trying to improve at the game using the epsilon-greedy al
 ### Q-Learning Agent
 #### Iteration 1:
 The state is represented only by the location of the snake's head and the position of the food.
-epsilon_decay = 0.995, min_epsilon = 0.01
+
+Parameters: alpha = 0.1, gamma = 0.9, initial epsilon = 1.0, epsilon_decay = 0.995, min_epsilon = 0.01
+
 Rewards: +10 for finding food, -10 for losing, and -1 for nothing happening.
+
+Board Size: 40x40
 
 The snake seems to have learned to off itself as soon as possible since the game board is so large it 
 cannot possibly find enough food fast enough to outdo the -1 reward for each move. Need to tweak the reward values.
 
 #### Iteration 2:
-The state is still only represented by the location of the snake's head and the position of the food. 
-I forsee this becoming a problem as the snake gets longer, as it doesn't know where the body is 
-epsilon_decay = 0.999, min_epsilon = 0.01
+The state is represented by the position of the snake's head, the whole body, and the food.
+I have decreased the board size so it is more likely to find the food in early training.
+
+Parameters: alpha = 0.1, gamma = 0.9, initial epsilon = 1.0, epsilon_decay = 0.995, min_epsilon = 0.01
+
 Rewards: +150 for finding food, -250 for losing, and -1 for nothing happening.
+
+Board Size: 20x20
 
 ### Installation
 1. Clone repository:
