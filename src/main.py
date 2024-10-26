@@ -66,16 +66,16 @@ while running:
     # RENDER GAME
     # draw snake
     for segment in game.snake.body:
-        segment_rect = pygame.Rect(segment[1] * GRID_SIZE[0],
-                                   segment[0] * GRID_SIZE[1],
-                                   GRID_SIZE[0], GRID_SIZE[1])
+        seg_x = segment[1] * GRID_SIZE[0]
+        seg_y = segment[0] * GRID_SIZE[1]
+        segment_rect = pygame.Rect(seg_x, seg_y, GRID_SIZE[0], GRID_SIZE[1])
         pygame.draw.rect(screen, SNAKE_COLOR, segment_rect)
 
     # draw food
-    food_rect = pygame.Rect(game.food.position[1] * GRID_SIZE[0],
-                            game.food.position[0] * GRID_SIZE[1],
-                            GRID_SIZE[0], GRID_SIZE[1])
-    pygame.draw.rect(screen, FOOD_COLOR, food_rect)
+    food_radius = GRID_SIZE[0]/2
+    food_x = game.food.position[1] * GRID_SIZE[0] + food_radius
+    food_y = game.food.position[0] * GRID_SIZE[1] + food_radius
+    pygame.draw.circle(screen, FOOD_COLOR, (food_x, food_y), food_radius)
 
     # display score
     score_font = pygame.font.Font(size=FONT_SIZE)
