@@ -33,7 +33,7 @@ game = Game(GRID_SIZE, WINDOW_SIZE)
 print(f"""Initializing Game:
     Window Size: {WINDOW_SIZE}px
     Grid Size: {GRID_SIZE}px
-    Grids: ({int(WINDOW_SIZE[0]/GRID_SIZE[0])}, {int(WINDOW_SIZE[1]/GRID_SIZE[1])})
+    Grids: {int(WINDOW_SIZE[0]/GRID_SIZE[0])} x {int(WINDOW_SIZE[1]/GRID_SIZE[1])}
 """)
 
 running = True
