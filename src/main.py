@@ -18,8 +18,9 @@ SNAKE_COLOR = (0, 255, 0)
 FOOD_COLOR = (255, 0, 0)
 
 # constants
-SIZE = 1280
-GRID_SIZE = (30, 30)
+MONITOR_DIM = (pygame.display.Info().current_w, pygame.display.Info().current_h)
+SIZE = int(min(MONITOR_DIM) * 0.9)
+GRID_SIZE = (int(SIZE/40), int(SIZE/40))
 UP, DOWN, LEFT, RIGHT = (-1, 0), (1, 0), (0, -1), (0, 1) 
 
 # create pygame screen
@@ -32,7 +33,7 @@ game = Game(GRID_SIZE, WINDOW_SIZE)
 print(f"""Initializing Game:
     Window Size: {WINDOW_SIZE}px
     Grid Size: {GRID_SIZE}px
-    Grids: ({int(WINDOW_SIZE[0]/GRID_SIZE[0])}, {int(WINDOW_SIZE[1]/GRID_SIZE[1])})px
+    Grids: ({int(WINDOW_SIZE[0]/GRID_SIZE[0])}, {int(WINDOW_SIZE[1]/GRID_SIZE[1])})
 """)
 
 running = True
