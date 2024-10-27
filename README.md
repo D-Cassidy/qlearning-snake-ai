@@ -58,7 +58,6 @@ and a Q-Learning agent trying to improve at the game using the epsilon-greedy al
 This section documents the tweaks and AI performance over time for the Q-learning agent.
 
 ### Initial Setup
-- **Date**: [Start Date]
 - **Parameters**:
   - **Learning Rate (α)**: `0.1`
   - **Discount Factor (γ)**: `0.9`
