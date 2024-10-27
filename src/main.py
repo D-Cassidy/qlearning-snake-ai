@@ -37,6 +37,7 @@ print(f"""Initializing Game:
     Grids: {int(WINDOW_SIZE[0]/GRID_SIZE[0])} x {int(WINDOW_SIZE[1]/GRID_SIZE[1])}
 """)
 quit = False
+speed = 20
 
 # initialize agent
 actions = ['up', 'down', 'left', 'right']
@@ -45,7 +46,7 @@ agent = QLearningAgent(actions)
 agent.load_q_table()
 
 # training settings
-num_epochs = 10000
+num_epochs = 100000
 for epoch in range(num_epochs):
     state = wrapper.reset()
     done = False 
@@ -66,6 +67,12 @@ for epoch in range(num_epochs):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     quit = True
+                elif event.key == pygame.K_EQUALS:
+                    speed += 10
+                    print(f"Speed increased to {speed}")
+                elif event.key == pygame.K_MINUS:
+                    speed -=10
+                    print(f"Speed decreased to {speed}")
 
         if quit: break 
 
@@ -100,7 +107,7 @@ for epoch in range(num_epochs):
 
 
         pygame.display.flip()
-        clock.tick(60) # limits fps to 60
+        clock.tick(speed) # limits fps to 60
 
     # Log progress
     print(f"Epoch {epoch+1}/{num_epochs}, Score: {game.score}, Total Reward: {total_reward}, Epsilon {agent.epsilon:.4f}")
