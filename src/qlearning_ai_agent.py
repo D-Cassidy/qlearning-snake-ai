@@ -4,7 +4,7 @@ import pickle
 
 class QLearningAgent:
     def __init__(self, actions, 
-                 alpha=0.2, gamma=0.95, epsilon=1.0, epsilon_decay=0.995, min_epsilon=0.01, 
+                 alpha=0.1, gamma=0.9, epsilon=1.0, epsilon_decay=0.995, min_epsilon=0.01, 
                  q_table_file='models/q_table.pkl'):
         self.actions = actions 
         self.alpha = alpha
