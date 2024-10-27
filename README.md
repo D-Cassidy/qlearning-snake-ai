@@ -48,6 +48,22 @@ This section documents the tweaks and AI performance over time for the Q-learnin
     - **Added default penalty** of -1 for nothing happening
     - **Removed reward/penalty** for moving towards/away from food
     - **Changed state given** to include relative position of snake to food, rather than absolute position of food
+- **Observations**: This one seems to learn very slowly which I didn't expect. I added the ability to turn off the game visualization so it can train much faster but it seems to be worse than the last iteration despite twice the training. I guess the reward for moving towards the food was quite important, but I think I'll just tweak the parameters and try again.
+
+#### Iteration 3:
+- **Changes**
+    - **Epsilon Decay** to 0.999
+    - **Minimum Epsilon** to 0.1
+    - **Increased Food Reward** to +500
+    - **Decreased Losing Penalty** to -100
+    - **Increased step penalty** to -2
+- **Observations**: I've realized that the state-action space is simply too large for this to converge to a consistent behavior. I'm gonig to reset the parameters to the initial setup and make the state given simply the relative position to food and nothing else.
+
+#### Iteration 4: 
+- **Changes**
+    - **Epsilon Decay** to 0.995
+    - **Minimum Epsilon** to 0.01
+    - **Changed State Tuple** to include only relative position to food to reduce state-action space size
 - **Observations**:
 
 ### Installation
