@@ -70,7 +70,7 @@ This section documents the tweaks and AI performance over time for the Q-learnin
 - **Changes**
     - **Change state tuple** to just give direction to food instead of distance
     - **Change state tuple** to include what is currently in each grid adjacent to the snake
-- **Observations**: 
+- **Observations**: By far the most successful version. This iteration displays clear behavior of having 'learned' the game and only struggles with the game when the snake gets too long and it boxes itself in. This is probably the limit of Q-Learning as I can't think of any ways to improve it aside from giving it more information which would increase the size of the state-action space too much for vanilla Q-Learning.
 
 ### Installation
 1. Clone repository:
