@@ -30,7 +30,7 @@ WINDOW_SIZE = (SIZE, SIZE)
 screen = pygame.display.set_mode(WINDOW_SIZE)
 clock = pygame.time.Clock()
 
-def main(agent='player', visualization=True, epochs=10000):
+def main(agent='player', visualization=True, epochs=10000, file='q_table.pkl'):
     # initialize game
     game_speed = 20
     game = Game(GRID_SIZE, WINDOW_SIZE)
@@ -66,7 +66,7 @@ def main(agent='player', visualization=True, epochs=10000):
         # initialize agent
         actions = ['up', 'down', 'left', 'right']
         wrapper = SnakeGameWrapper(game)
-        agent = QLearningAgent(actions)
+        agent = QLearningAgent(actions, q_table_file=file)
         agent.load_q_table()
 
         # training settings
@@ -148,8 +148,8 @@ if __name__ == "__main__":
     parser.add_argument("--agent", type=str, default='player', help='Which AI agent or input mode to use')
     parser.add_argument("--visualization", action='store_false', help='Whether to visualize the game board or not')
     parser.add_argument("--epochs", type=int, default=10000, help='Number of epochs to train AI for')
+    parser.add_argument("--file", type=str, default='q_table.pkl', help='Which file to AI from')
     args = parser.parse_args()
-    print(args)
 
-    main(agent=args.agent, visualization=args.visualization, epochs=args.epochs)
+    main(agent=args.agent, visualization=args.visualization, epochs=args.epochs, file=args.file)
     pygame.quit()
