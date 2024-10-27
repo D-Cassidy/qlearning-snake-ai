@@ -16,27 +16,30 @@ the added benefit of learning the PyGame library. It features a Snake Game made 
 and a Q-Learning agent trying to improve at the game using the epsilon-greedy algorithm.
 
 ### Q-Learning Agent
+
+This section documents the tweaks and AI performance over time for the Q-learning agent.
+
+### Initial Setup
+- **Date**: [Start Date]
+- **Parameters**:
+  - **Learning Rate (α)**: `0.1`
+  - **Discount Factor (γ)**: `0.9`
+  - **Epsilon (ε)**: `1.0`, with **Decay**: `0.995`
+  - **Rewards**:
+    - Food: `10`
+    - Step Penalty: `-1`
+    - Wall Collision: `-10`
+- **State Representation**: Absolute head position, absolute food position.
+- **Observations**: After learning for a few iterations, it seems to have learned to off itself as soon as possible to minimize negative rewards.
+
 #### Iteration 1:
-The state is represented only by the location of the snake's head and the position of the food.
-
-Parameters: alpha = 0.1, gamma = 0.9, initial epsilon = 1.0, epsilon_decay = 0.995, min_epsilon = 0.01
-
-Rewards: +10 for finding food, -10 for losing, and -1 for nothing happening.
-
-Board Size: 40x40
-
-The snake seems to have learned to off itself as soon as possible since the game board is so large it 
-cannot possibly find enough food fast enough to outdo the -1 reward for each move. Need to tweak the reward values.
-
-#### Iteration 2:
-The state is represented by the position of the snake's head, the whole body, and the food.
-I have decreased the board size so it is more likely to find the food in early training.
-
-Parameters: alpha = 0.1, gamma = 0.9, initial epsilon = 1.0, epsilon_decay = 0.995, min_epsilon = 0.01
-
-Rewards: +150 for finding food, -250 for losing, and -1 for nothing happening.
-
-Board Size: 20x20
+- **Changes**
+    - **Increased Food Reward** to +50
+    - **Increased Losing Penalty** to -100
+    - **Removed default penalty**
+    - **Added reward** for moving towards the food (+2)
+    - **Added penalty** for moving away from food (-1)
+- **Observations**: this iteration was allowed to train for much longer than the last one. It seems to have learned go in circles rather than die to 'farm' infinite reward. Just repeating +2 for going towards food, -1 for going away from food. Whoops. It also takes immensely long to train but the score got as high as 30, previous iteration only ever got to 4.
 
 ### Installation
 1. Clone repository:
