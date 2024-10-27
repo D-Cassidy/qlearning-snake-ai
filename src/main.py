@@ -87,9 +87,11 @@ def main(agent='player', visualization=True):
                 # poll for user input
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
+                        agent.save_q_table()
                         return
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_q:
+                            agent.save_q_table()
                             return
                         elif event.key == pygame.K_EQUALS:
                             game_speed += 10
