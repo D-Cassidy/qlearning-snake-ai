@@ -5,15 +5,53 @@ PyGame based version of Snake and reinforcement learning (Q-learning) to train a
 
 ### Table of Contents
 - [Project Overview](#project-overview)
-- [Q-Learning Agent](#q-learning-agent)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Q-Learning Agent](#q-learning-agent)
 - [Project Structure](#project-structure)
+
 
 ### Project Overview
 The goal of this project is to teach myself more about how AI, in particular reinforcement learning works with 
 the added benefit of learning the PyGame library. It features a Snake Game made using Python's PyGame library 
 and a Q-Learning agent trying to improve at the game using the epsilon-greedy algorithm.
+
+
+### Installation
+1. Clone repository:
+    ```bash
+    git clone https://github.com/D-Cassidy/snake-ai-game.git
+    cd snake-ai-game
+    ```
+
+2. Setup virtual environment (optional):
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+3. Install packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+
+### Usage
+1. Run the game with default settings
+    ```bash
+    src/main.py 
+    ```
+
+2. Run the game with AI player
+    ```bash
+    src/main.py --agent 'q-learn' --file 'models/iter5_q_table.pkl'
+    ```
+
+**Parameters** 
+- --agent | type=str | options='player', 'q-learn' | which agent will be used to play the game 
+- --visualization | True by default, using this flag will toggle to False
+- --epochs | type=int | Number of epochs the AI will train for if using AI agent
+- --file | type=str | Which file to load AI agent from, be sure to use relative path from main directory
 
 ### Q-Learning Agent
 
@@ -72,32 +110,8 @@ This section documents the tweaks and AI performance over time for the Q-learnin
     - **Change state tuple** to include what is currently in each grid adjacent to the snake
 - **Observations**: By far the most successful version. This iteration displays clear behavior of having 'learned' the game and only struggles with the game when the snake gets too long and it boxes itself in. This is probably the limit of Q-Learning as I can't think of any ways to improve it aside from giving it more information which would increase the size of the state-action space too much for vanilla Q-Learning.
 
-### Installation
-1. Clone repository:
-    ```bash
-    git clone https://github.com/D-Cassidy/snake-ai-game.git
-    cd snake-ai-game
-    ```
-
-2. Setup virtual environment (optional):
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-
-3. Install packages:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-### Usage
-1. Run the game:
-    ```bash
-    ./src/main.py
-    ```
-
-2. Training the AI:
-    TODO
+#### Summary
+After achieving a successful AI on iteration 5 that appears to display intelligent behavior in its gameplay the Q-Learning project is completed. In early iterations the state-action space was simply too large (upwards of 2000000 possible state-action combinations by my calculations) to train in a reasonable amount of time. The solution was come up with a method of giving it information that would be useful and create as few unique state-action combinations as possible. In the end I settled giving the x direction of the food (-1, 1, or 0), the y direction of the food (-1, 1, or 0), and whether or not there was a collidable object on any of the spaces immediately adjacent to the head (True or False). The penalty for taking any step at all also seems to have had the intended effect of getting the AI to favor shorter paths.
 
 ### Project Structure
 ```plaintext
@@ -111,7 +125,7 @@ snake-ai-game/
 |   |--utils.py                 # Helper functions
 |
 |--models/
-|   |--q_table.pkl              # saves data on ai agent
+|   |--*.pkl              # saves data on ai agent
 |
 |--requirements.txt             # Project dependencies
 |--README.md                    # Project documentation
