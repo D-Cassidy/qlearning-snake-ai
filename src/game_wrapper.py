@@ -13,9 +13,9 @@ class SnakeGameWrapper:
         """Retruns the current game state"""
         snake_head = self.game.snake.body[0]
         food_position = self.game.food.position
-        x_dist_from_food = snake_head[0] - food_position[0]
-        y_dist_from_food = snake_head[1] - food_position[1]
-        state = (snake_head, x_dist_from_food, y_dist_from_food)
+        y_dist_from_food = snake_head[0] - food_position[0]
+        x_dist_from_food = snake_head[1] - food_position[1]
+        state = (x_dist_from_food, y_dist_from_food)
         return state
     
     def take_action(self, action):
@@ -35,11 +35,11 @@ class SnakeGameWrapper:
         next_state = self.get_state()
 
         # Define reward
-        reward = -1          # default penalty to encourage efficiency
+        reward = -2          # default penalty to encourage efficiency
         if self.game.score > old_score:
-            reward = 100     # positive reward for food 
+            reward = 500     # positive reward for food 
         elif self.game.game_over:
-            reward = -200    # negative reward for losing
+            reward = -100    # negative reward for losing
 
         done = self.game.game_over
         return next_state, reward, done
