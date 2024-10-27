@@ -30,7 +30,7 @@ WINDOW_SIZE = (SIZE, SIZE)
 screen = pygame.display.set_mode(WINDOW_SIZE)
 clock = pygame.time.Clock()
 
-def main(agent='player', visualization=True):
+def main(agent='player', visualization=True, epochs=10000):
     # initialize game
     game_speed = 20
     game = Game(GRID_SIZE, WINDOW_SIZE)
@@ -70,8 +70,7 @@ def main(agent='player', visualization=True):
         agent.load_q_table()
 
         # training settings
-        num_epochs = 100000
-        for epoch in range(num_epochs):
+        for epoch in range(epochs):
             state = wrapper.reset()
             done = False 
             total_reward = 0    # track reward per epoch
@@ -104,7 +103,7 @@ def main(agent='player', visualization=True):
                     render_game(game, game_speed)
 
             # Log progress
-            print(f"Epoch {epoch+1}/{num_epochs}, Score: {game.score}, Total Reward: {total_reward}, Epsilon {agent.epsilon:.4f}")
+            print(f"Epoch {epoch+1}/{epochs}, Score: {game.score}, Total Reward: {total_reward}, Epsilon {agent.epsilon:.4f}")
             agent.decay_epsilon()
 
         agent.save_q_table()
@@ -148,8 +147,9 @@ if __name__ == "__main__":
 
     parser.add_argument("--agent", type=str, default='player', help='Which AI agent or input mode to use')
     parser.add_argument("--visualization", action='store_false', help='Whether to visualize the game board or not')
+    parser.add_argument("--epochs", type=int, default=10000, help='Number of epochs to train AI for')
     args = parser.parse_args()
     print(args)
 
-    main(agent=args.agent, visualization=args.visualization)
+    main(agent=args.agent, visualization=args.visualization, epochs=args.epochs)
     pygame.quit()
