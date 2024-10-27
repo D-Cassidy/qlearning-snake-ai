@@ -13,11 +13,15 @@ class SnakeGameWrapper:
         """Retruns the current game state"""
         snake_head = self.game.snake.body[0]
         food_position = self.game.food.position
-        y_dist_from_food = snake_head[0] - food_position[0]
-        x_dist_from_food = snake_head[1] - food_position[1]
+        y_dist = snake_head[0] - food_position[0]
+        x_dist = snake_head[1] - food_position[1]
         # Get food direction to reduce size of state space
-        x_dir_to_food = -1 if x_dist_from_food < 0 else 1
-        y_dir_to_food = -1 if y_dist_from_food < 0 else 1
+        if x_dist > 0: x_dir = 1 
+        elif x_dist < 0: x_dir = -1
+        else: x_dir = 0
+        if y_dist > 0: y_dir = 1
+        elif y_dist < 0: y_dir = -1
+        else: y_dir = 0
 
         vision = []
         for i in range(-1, 2, 2):
@@ -32,7 +36,7 @@ class SnakeGameWrapper:
 
         vision = tuple(vision)
 
-        state = (-x_dir_to_food, y_dir_to_food, vision)
+        state = (x_dir, y_dir, vision)
         return state
     
     def take_action(self, action):
