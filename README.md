@@ -41,6 +41,15 @@ This section documents the tweaks and AI performance over time for the Q-learnin
     - **Added penalty** for moving away from food (-1)
 - **Observations**: this iteration was allowed to train for much longer than the last one. It seems to have learned go in circles rather than die to 'farm' infinite reward. Just repeating +2 for going towards food, -1 for going away from food. Whoops. It also takes immensely long to train but the score got as high as 30, previous iteration only ever got to 4.
 
+#### Iteration 2:
+- **Changes**
+    - **Increased Food Reward** to +100
+    - **Increased Losing Penalty** to -200
+    - **Added default penalty** of -1 for nothing happening
+    - **Removed reward/penalty** for moving towards/away from food
+    - **Changed state given** to include relative position of snake to food, rather than absolute position of food
+- **Observations**:
+
 ### Installation
 1. Clone repository:
     ```bash
