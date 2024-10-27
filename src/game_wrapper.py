@@ -30,7 +30,6 @@ class SnakeGameWrapper:
         elif action == 'right':
             self.game.snake.change_direction(utils.RIGHT)
 
-        old_dist = utils.manhattan_distance(self.game.snake.body[0], self.game.food.position)
         old_score = self.game.score
         self.game.update()
         next_state = self.get_state()
