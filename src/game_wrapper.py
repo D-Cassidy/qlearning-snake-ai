@@ -15,7 +15,24 @@ class SnakeGameWrapper:
         food_position = self.game.food.position
         y_dist_from_food = snake_head[0] - food_position[0]
         x_dist_from_food = snake_head[1] - food_position[1]
-        state = (x_dist_from_food, y_dist_from_food)
+        # Get food direction to reduce size of state space
+        x_dir_to_food = -1 if x_dist_from_food < 0 else 1
+        y_dir_to_food = -1 if y_dist_from_food < 0 else 1
+
+        vision = []
+        for i in range(-1, 2, 2):
+            square1 = (snake_head[0]+i, snake_head[1])
+            square2 = (snake_head[0], snake_head[1]+i)
+            vision.append(square1 in self.game.snake.body 
+                          or square1[0] < 0 or square1[0] > (self.game.window_size[0] / self.game.grid_size[0])
+                          or square1[1] < 0 or square1[1] > (self.game.window_size[1] / self.game.grid_size[1]))
+            vision.append(square2 in self.game.snake.body 
+                          or square2[0] < 0 or square2[0] > (self.game.window_size[0] / self.game.grid_size[0])
+                          or square2[1] < 0 or square2[1] > (self.game.window_size[1] / self.game.grid_size[1]))
+
+        vision = tuple(vision)
+
+        state = (-x_dir_to_food, y_dir_to_food, vision)
         return state
     
     def take_action(self, action):
