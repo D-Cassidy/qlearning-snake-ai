@@ -40,6 +40,7 @@ def main(agent='player', visualization=True):
         Grids: {int(WINDOW_SIZE[0]/GRID_SIZE[0])} x {int(WINDOW_SIZE[1]/GRID_SIZE[1])}
     """)
 
+    # GAME LOOP FOR HUMAN INPUT
     if agent == 'player':
         while True:
             for event in pygame.event.get():
@@ -60,6 +61,7 @@ def main(agent='player', visualization=True):
             if game.game_over: game.reset()
             render_game(game, game_speed)
 
+    # GAME LOOP FOR Q-LEARNING AGENT
     elif agent =='q-learn':
         # initialize agent
         actions = ['up', 'down', 'left', 'right']
@@ -138,6 +140,7 @@ def render_game(game, game_speed):
     pygame.display.flip()
     clock.tick(game_speed) # limits fps to 60
 
+# MAIN SCRIPT
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
