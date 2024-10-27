@@ -36,17 +36,11 @@ class SnakeGameWrapper:
         next_state = self.get_state()
 
         # Define reward
-        reward = 0          # default penalty to encourage efficiency
+        reward = -1          # default penalty to encourage efficiency
         if self.game.score > old_score:
-            reward = 50     # positive reward for food 
+            reward = 100     # positive reward for food 
         elif self.game.game_over:
-            reward = -100    # negative reward for losing
-        else:               # reward for getting closer to food
-            new_dist = utils.manhattan_distance(self.game.snake.body[0], self.game.food.position)
-            if new_dist < old_dist:
-                reward += 2
-            elif new_dist > old_dist:
-                reward -= 1
+            reward = -200    # negative reward for losing
 
         done = self.game.game_over
         return next_state, reward, done
