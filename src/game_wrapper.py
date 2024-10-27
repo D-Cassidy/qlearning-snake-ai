@@ -12,9 +12,9 @@ class SnakeGameWrapper:
     def get_state(self):
         """Retruns the current game state"""
         snake_head = self.game.snake.body[0]
-        snake_body = self.game.snake.body[1:]
+        # snake_body = self.game.snake.body[1:]
         food_position = self.game.food.position
-        state = tuple([snake_head] + snake_body + [food_position])
+        state = (snake_head, food_position)
         return state
     
     def take_action(self, action):
@@ -29,17 +29,23 @@ class SnakeGameWrapper:
         elif action == 'right':
             self.game.snake.change_direction(utils.RIGHT)
 
+        old_dist = utils.manhattan_distance(self.game.snake.body[0], self.game.food.position)
+        old_score = self.game.score
         self.game.update()
         next_state = self.get_state()
 
         # Define reward
-        reward = 0
-        if self.game.snake.body[0] == self.game.food.position:
-            reward = 500     # positive reward for food 
+        reward = 0          # default penalty to encourage efficiency
+        if self.game.score > old_score:
+            reward = 50     # positive reward for food 
         elif self.game.game_over:
             reward = -100    # negative reward for losing
-        else:
-            reward = -1     # light punishment for getting nothing done
+        else:               # reward for getting closer to food
+            new_dist = utils.manhattan_distance(self.game.snake.body[0], self.game.food.position)
+            if new_dist < old_dist:
+                reward += 2
+            elif new_dist > old_dist:
+                reward -= 1
 
         done = self.game.game_over
         return next_state, reward, done
