@@ -64,7 +64,13 @@ This section documents the tweaks and AI performance over time for the Q-learnin
     - **Epsilon Decay** to 0.995
     - **Minimum Epsilon** to 0.01
     - **Changed State Tuple** to include only relative position to food to reduce state-action space size
-- **Observations**:
+- **Observations**: After training for just 10000 iterations the behavior is clear, it has learned to move towards the food. Decreasing the size of the state-action space was the right move and now it's dying more often to its own body than walls.
+
+#### Iteration 5:
+- **Changes**
+    - **Change state tuple** to just give direction to food instead of distance
+    - **Change state tuple** to include what is currently in each grid adjacent to the snake
+- **Observations**: 
 
 ### Installation
 1. Clone repository:
