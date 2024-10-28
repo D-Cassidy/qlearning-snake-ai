@@ -1,4 +1,4 @@
-# Snake AI Game
+# Q-Learning Snake AI
 
 A self-learning AI that plays the classic Snake game, developed in Python. This project includes a basic 
 PyGame based version of Snake and reinforcement learning (Q-learning) to train an AI to improve its gameplay performance.
